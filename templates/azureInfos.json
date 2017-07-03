@@ -1,0 +1,27 @@
+[
+  {
+    "titel":"Azure for .NET developers",
+    "subtitle":"Learn how to build .NET apps with Azure services.",
+    "link":"https://docs.microsoft.com/en-us/dotnet/azure/?view=azure-dotnet"
+  },
+  {
+    "titel":"Azure for Node.js developers",
+    "subtitle":"Create and deploy a sample app in five minutes.",
+    "link":"https://docs.microsoft.com/en-us/nodejs/azure/?view=azure-node-2.0.0"
+  },
+  {
+    "titel":"Azure for Java developers",
+    "subtitle":"Learn how to build Java apps with Azure services.",
+    "link":"https://docs.microsoft.com/en-us/dotnet/azure/?view=azure-dotnet"
+  },
+  {
+    "titel":"Create a PHP web app in Azure",
+    "subtitle":"Learn how to build PHP apps with Azure services.",
+    "link":"https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-get-started-php"
+  },
+  {
+    "titel":"Azure for Python developers",
+    "subtitle":"Learn how to build Python apps with Azure services.",
+    "link":"https://docs.microsoft.com/en-us/python/azure/?view=azure-python"
+  }
+]

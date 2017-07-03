@@ -52,8 +52,15 @@ def hello_world():
 
 @app.route('/user')
 def get_user():
-    user = open(json_url+'/user.json')
+    user = open(json_url + '/user.json')
     return response(json.load(user))
+
+
+@app.route('/azure/infos')
+def get_azureInfos():
+    info = open(json_url + '/azureInfos.json')
+    return response(json.load(info))
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8088, debug=True)
