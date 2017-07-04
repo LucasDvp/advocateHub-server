@@ -1,27 +1,32 @@
 [
   {
-    "titel":"Azure for .NET developers",
+    "title":"Azure for .NET developers",
     "subtitle":"Learn how to build .NET apps with Azure services.",
-    "link":"https://docs.microsoft.com/en-us/dotnet/azure/?view=azure-dotnet"
+    "link":"https://docs.microsoft.com/en-us/dotnet/azure/?view=azure-dotnet",
+    "imgurl": "dotnet.png"
   },
   {
-    "titel":"Azure for Node.js developers",
+    "title":"Azure for Node.js developers",
     "subtitle":"Create and deploy a sample app in five minutes.",
-    "link":"https://docs.microsoft.com/en-us/nodejs/azure/?view=azure-node-2.0.0"
+    "link":"https://docs.microsoft.com/en-us/nodejs/azure/?view=azure-node-2.0.0",
+    "imgurl": "nodejs.png"
   },
   {
-    "titel":"Azure for Java developers",
+    "title":"Azure for Java developers",
     "subtitle":"Learn how to build Java apps with Azure services.",
-    "link":"https://docs.microsoft.com/en-us/dotnet/azure/?view=azure-dotnet"
+    "link":"https://docs.microsoft.com/en-us/dotnet/azure/?view=azure-dotnet",
+    "imgurl": "java.jpg"
   },
   {
-    "titel":"Create a PHP web app in Azure",
+    "title":"Create a PHP web app in Azure",
     "subtitle":"Learn how to build PHP apps with Azure services.",
-    "link":"https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-get-started-php"
+    "link":"https://docs.microsoft.com/en-us/azure/app-service-web/app-service-web-get-started-php",
+    "imgurl": "php.png"
   },
   {
-    "titel":"Azure for Python developers",
+    "title":"Azure for Python developers",
     "subtitle":"Learn how to build Python apps with Azure services.",
-    "link":"https://docs.microsoft.com/en-us/python/azure/?view=azure-python"
+    "link":"https://docs.microsoft.com/en-us/python/azure/?view=azure-python",
+    "imgurl": "python.png"
   }
 ]
