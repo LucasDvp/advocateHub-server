@@ -54,6 +54,11 @@ def hello_world():
 def get_user():
     user = open(json_url + '/user.json')
     return response(json.load(user))
+	
+@app.route('/advocators')
+def get_advocators():
+    advocators = open(json_url + '/advocates.json')
+    return response(json.load(advocators))
 
 
 @app.route('/azure/infos')
