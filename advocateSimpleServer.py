@@ -112,4 +112,4 @@ def get_meetings():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=13888, debug=True)
+    app.run(host='10.0.0.4', port=13888, debug=True)
