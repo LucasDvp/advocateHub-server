@@ -1,3 +1,6 @@
 ENV/
 .idea/
 venv/
+
+# pyc files
+advocateSimpleServer.pyc

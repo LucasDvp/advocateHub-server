@@ -88,7 +88,8 @@ def user_login():
         session['id'] = userId
         advocator = advocators.find_one({"id": userId})
         if advocator:
-            return response({}, 404, errorMsg="the advocaror has been inserted.")
+            advocators.update_one(userInfo)
+            return response(True)
         else:
             advocators.insert_one(userInfo)
             return response(True)
@@ -100,6 +101,10 @@ def user_login():
         else:
             return response({}, 404)
 
+@app.route('/meetings')
+def get_meetings():
+    meetingsInfo = meetings.find({})
+    return response(meetingsInfo)
 
 if __name__ == '__main__':
     app.run(host='10.0.0.4', port=13888, debug=True)
