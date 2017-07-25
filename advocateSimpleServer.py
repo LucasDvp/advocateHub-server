@@ -32,7 +32,6 @@ def jd(obj):
     return json_util.dumps(obj)
 
 
-
 #
 # Response
 #
@@ -90,6 +89,8 @@ def user_login():
         session['id'] = userId
         advocator = advocators.find_one({"id": userId})
         if advocator:
+            print(userInfo)
+            del userInfo['_id']
             advocators.update_one({'id': userId}, {'$set': userInfo}, upsert=False)
             return response(True)
         else:
@@ -103,10 +104,12 @@ def user_login():
         else:
             return response({}, 404)
 
+
 @app.route('/meetings')
 def get_meetings():
     meetingsInfo = list(meetings.find({}))
     return response(meetingsInfo)
 
+
 if __name__ == '__main__':
-    app.run(host='10.0.0.4', port=13888, debug=True)
+    app.run(host='localhost', port=13888, debug=True)
