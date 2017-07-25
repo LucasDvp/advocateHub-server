@@ -1,4 +1,4 @@
-from flask import Flask, json
+from flask import Flask, json, session
 from flask import request
 from flask import make_response
 from flask_cors import CORS
@@ -11,6 +11,7 @@ app = Flask(__name__)
 CORS(app)
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 json_url = os.path.join(SITE_ROOT, "templates")
+app.secret_key = 'SUPERSECRETEKEYOFMSADVOCATEHUB'
 
 #
 # Mongo db related
@@ -62,6 +63,10 @@ def get_user():
     user = open(json_url + '/user.json')
     return response(json.load(user))
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 832642a0b88c3c0c889ea4177d882bdd86cf2bea
 @app.route('/advocators')
 def get_advocators():
     advocators = open(json_url + '/advocates.json')
@@ -72,5 +77,19 @@ def get_azureInfos():
     info = open(json_url + '/azureInfos.json')
     return response(json.load(info))
 
+<<<<<<< HEAD
+=======
+
+@app.route('/user/login', methods=['POST', 'GET'])
+def user_login():
+    if request.method == 'POST':
+        userInfo = request.get_json()
+        session['id'] = userInfo['id']
+        return response(True)
+    else:
+        return response(('id' in session))
+
+
+>>>>>>> 832642a0b88c3c0c889ea4177d882bdd86cf2bea
 if __name__ == '__main__':
     app.run(host='10.0.0.4', port=13888, debug=True)
