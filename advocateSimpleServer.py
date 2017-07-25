@@ -88,11 +88,11 @@ def user_login():
         return response(True)
     else:
         userId = request.args.get('userId')
-        # add the mongodb query in here
-        if userId == '1284688014':
-            return response(True)
-        return response(False)
-        # return response(('id' in session))
+        advocator = advocators.find_one({"id": userId})
+        if advocator:
+            return response(advocator["isInitialized"])
+        else:
+            return response(False)
 
 
 if __name__ == '__main__':
