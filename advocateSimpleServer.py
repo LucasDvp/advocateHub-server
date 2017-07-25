@@ -90,9 +90,9 @@ def user_login():
         userId = request.args.get('userId')
         advocator = advocators.find_one({"id": userId})
         if advocator:
-            return response(advocator["isInitialized"])
+            return response(advocator)
         else:
-            return response(False)
+            return response({}, 404)
 
 
 if __name__ == '__main__':
