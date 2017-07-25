@@ -3,6 +3,7 @@ from flask import request
 from flask import make_response
 from flask_cors import CORS
 from bson import json_util
+from pymongo import MongoClient
 import time
 import os
 
@@ -11,6 +12,13 @@ CORS(app)
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 json_url = os.path.join(SITE_ROOT, "templates")
 
+#
+# Mongo db related
+#
+mongoClient = MongoClient('localhost', 27017)
+db = mongoClient.advocateHub
+advocators = db.advocators;
+meetings = db.meetings;
 
 #
 # Functions
@@ -49,23 +57,20 @@ def page_not_found(error):
 def hello_world():
     return 'Hello World!'
 
-
 @app.route('/user')
 def get_user():
     user = open(json_url + '/user.json')
     return response(json.load(user))
-	
+
 @app.route('/advocators')
 def get_advocators():
     advocators = open(json_url + '/advocates.json')
     return response(json.load(advocators))
 
-
 @app.route('/azure/infos')
 def get_azureInfos():
     info = open(json_url + '/azureInfos.json')
     return response(json.load(info))
-
 
 if __name__ == '__main__':
     app.run(host='10.0.0.4', port=13888, debug=True)
