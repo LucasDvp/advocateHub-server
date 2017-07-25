@@ -90,7 +90,7 @@ def user_login():
         session['id'] = userId
         advocator = advocators.find_one({"id": userId})
         if advocator:
-            advocators.update_one({'id': userId}, userInfo)
+            advocators.update_one({'id': userId}, {'$set': userInfo}, upsert=False)
             return response(True)
         else:
             advocators.insert_one(userInfo)
