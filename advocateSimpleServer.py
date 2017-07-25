@@ -44,7 +44,7 @@ def response(data={}, code=200, errorMsg=""):
         "errorMessage": errorMsg
     }
     response = make_response(jd(resp))
-    response.headers['Status Code'] = resp['status']
+    # response.headers['Status Code'] = resp['status']
     response.headers['Content-Type'] = "application/json"
     return response
 
@@ -57,11 +57,14 @@ def response(data={}, code=200, errorMsg=""):
 def page_not_found(error):
     return response({}, 404)
 
-
 @app.route('/')
 def hello_world():
     return 'Hello World!'
 
+
+@app.route('/test')
+def test_gunicorn():
+    return 'Fuck Gunicorn!'
 
 @app.route('/user')
 def get_user():
@@ -73,7 +76,6 @@ def get_user():
 def get_advocators():
     advocators = open(json_url + '/advocates.json')
     return response(json.load(advocators))
-
 
 @app.route('/azure/infos')
 def get_azureInfos():
@@ -112,4 +114,4 @@ def get_meetings():
 
 
 if __name__ == '__main__':
-    app.run(host='10.0.0.4', port=13888, debug=True)
+    app.run(host="10.0.0.4", port=13888)
