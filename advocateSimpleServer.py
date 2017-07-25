@@ -75,8 +75,13 @@ def user_login():
         session['id'] = userInfo['id']
         return response(True)
     else:
-        return response(('id' in session))
+        userId = request.args.get('userId')
+        #add the mongo query in here
+        if userId == '1284688014':
+            return response(True)
+        return response(False)
+        #return response(('id' in session))
 
 
 if __name__ == '__main__':
-    app.run(host='10.0.0.4', port=13888, debug=True)
+    app.run(host='localhost', port=13888, debug=True)
