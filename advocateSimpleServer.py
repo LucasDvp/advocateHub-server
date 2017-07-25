@@ -3,6 +3,7 @@ from flask import request
 from flask import make_response
 from flask_cors import CORS
 from bson import json_util
+from bson import ObjectId
 from pymongo import MongoClient
 import time
 import os
@@ -29,6 +30,7 @@ meetings = db.meetings
 
 def jd(obj):
     return json_util.dumps(obj)
+
 
 
 #
@@ -88,7 +90,7 @@ def user_login():
         session['id'] = userId
         advocator = advocators.find_one({"id": userId})
         if advocator:
-            advocators.update_one(userInfo)
+            advocators.update_one({'id': userId}, userInfo)
             return response(True)
         else:
             advocators.insert_one(userInfo)
@@ -103,7 +105,7 @@ def user_login():
 
 @app.route('/meetings')
 def get_meetings():
-    meetingsInfo = meetings.find({})
+    meetingsInfo = list(meetings.find({}))
     return response(meetingsInfo)
 
 if __name__ == '__main__':
