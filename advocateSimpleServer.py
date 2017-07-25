@@ -90,7 +90,6 @@ def user_login():
         advocator = advocators.find_one({"id": userId})
         if advocator:
             print(userInfo)
-            del userInfo['_id']
             advocators.update_one({'id': userId}, {'$set': userInfo}, upsert=False)
             return response(True)
         else:
@@ -100,6 +99,7 @@ def user_login():
         userId = request.args.get('userId')
         advocator = advocators.find_one({"id": userId})
         if advocator:
+            del advocator['_id']
             return response(advocator)
         else:
             return response({}, 404)
