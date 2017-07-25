@@ -35,11 +35,12 @@ def jd(obj):
 # Response
 #
 
-def response(data={}, code=200):
+def response(data={}, code=200, errorMsg=""):
     resp = {
         "timestamp": int(round(time.time() * 1000)),
         "status": code,
-        "data": data
+        "data": data,
+        "errorMessage": errorMsg
     }
     response = make_response(jd(resp))
     response.headers['Status Code'] = resp['status']
@@ -83,9 +84,14 @@ def get_azureInfos():
 def user_login():
     if request.method == 'POST':
         userInfo = request.get_json()
-        # save the user to mongodb here
-        session['id'] = userInfo['id']
-        return response(True)
+        userId = userInfo['id']
+        session['id'] = userId
+        advocator = advocators.find_one({"id": userId})
+        if advocator:
+            return response({}, 404, errorMsg="the advocaror has been inserted.")
+        else:
+            advocators.insert_one(userInfo)
+            return response(True)
     else:
         userId = request.args.get('userId')
         advocator = advocators.find_one({"id": userId})
