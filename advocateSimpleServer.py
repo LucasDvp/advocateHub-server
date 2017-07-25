@@ -16,7 +16,8 @@ app.secret_key = 'SUPERSECRETEKEYOFMSADVOCATEHUB'
 #
 # Mongo db related
 #
-mongoClient = MongoClient('localhost', 27017)
+# mongoClient = MongoClient('localhost', 27017)
+mongoClient = MongoClient('40.83.190.18', 27017)
 db = mongoClient.advocateHub
 advocators = db.advocators;
 meetings = db.meetings;
@@ -53,7 +54,6 @@ def response(data={}, code=200):
 def page_not_found(error):
     return response({}, 404)
 
-
 @app.route('/')
 def hello_world():
     return 'Hello World!'
@@ -63,10 +63,6 @@ def get_user():
     user = open(json_url + '/user.json')
     return response(json.load(user))
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 832642a0b88c3c0c889ea4177d882bdd86cf2bea
 @app.route('/advocators')
 def get_advocators():
     advocators = open(json_url + '/advocates.json')
@@ -76,9 +72,6 @@ def get_advocators():
 def get_azureInfos():
     info = open(json_url + '/azureInfos.json')
     return response(json.load(info))
-
-<<<<<<< HEAD
-=======
 
 @app.route('/user/login', methods=['POST', 'GET'])
 def user_login():
@@ -90,6 +83,5 @@ def user_login():
         return response(('id' in session))
 
 
->>>>>>> 832642a0b88c3c0c889ea4177d882bdd86cf2bea
 if __name__ == '__main__':
     app.run(host='10.0.0.4', port=13888, debug=True)
