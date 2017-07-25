@@ -19,8 +19,9 @@ app.secret_key = 'SUPERSECRETEKEYOFMSADVOCATEHUB'
 # mongoClient = MongoClient('localhost', 27017)
 mongoClient = MongoClient('40.83.190.18', 27017)
 db = mongoClient.advocateHub
-advocators = db.advocators;
-meetings = db.meetings;
+advocators = db.advocators
+meetings = db.meetings
+
 
 #
 # Functions
@@ -54,38 +55,44 @@ def response(data={}, code=200):
 def page_not_found(error):
     return response({}, 404)
 
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
 
 @app.route('/user')
 def get_user():
     user = open(json_url + '/user.json')
     return response(json.load(user))
 
+
 @app.route('/advocators')
 def get_advocators():
     advocators = open(json_url + '/advocates.json')
     return response(json.load(advocators))
+
 
 @app.route('/azure/infos')
 def get_azureInfos():
     info = open(json_url + '/azureInfos.json')
     return response(json.load(info))
 
+
 @app.route('/user/login', methods=['POST', 'GET'])
 def user_login():
     if request.method == 'POST':
         userInfo = request.get_json()
+        # save the user to mongodb here
         session['id'] = userInfo['id']
         return response(True)
     else:
         userId = request.args.get('userId')
-        #add the mongo query in here
+        # add the mongodb query in here
         if userId == '1284688014':
             return response(True)
         return response(False)
-        #return response(('id' in session))
+        # return response(('id' in session))
 
 
 if __name__ == '__main__':
