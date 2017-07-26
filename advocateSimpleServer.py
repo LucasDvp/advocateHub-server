@@ -5,6 +5,8 @@ from flask_cors import CORS
 from bson import json_util
 from bson import ObjectId
 from pymongo import MongoClient
+from datetime import datetime
+from datetime import timezone
 import time
 import os
 
@@ -31,6 +33,12 @@ meetings = db.meetings
 def jd(obj):
     return json_util.dumps(obj)
 
+def normalizeMongoRecordToDict(record):
+    for k, v in record.items():
+        if type(v) is ObjectId:
+            record[k] = str(v)
+        elif type(v) is datetime:
+            record[k] = int(v.replace(tzinfo=timezone.utc).timestamp()) * 1000
 
 #
 # Response
@@ -104,10 +112,25 @@ def user_login():
         else:
             return response({}, 404)
 
+@app.route('/user/detail')
+def get_userDetail():
+    userId = request.args.get('userId')
+    advocator = advocators.find_one({"id": userId})
+    if advocator:
+        del advocator['_id']
+        userMeetings = list(meetings.find({"advocatorId": userId}))
+        for userMeeting in userMeetings:
+            normalizeMongoRecordToDict(userMeeting)
+        advocator['meetings'] = userMeetings
+        return response(advocator)
+    else:
+        return response({}, 404)
 
 @app.route('/meetings')
 def get_meetings():
     meetingsInfo = list(meetings.find({}))
+    for meetingInfo in meetingsInfo:
+        normalizeMongoRecordToDict(meetingInfo)
     return response(meetingsInfo)
 
 

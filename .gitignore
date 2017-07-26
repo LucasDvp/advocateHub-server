@@ -2,5 +2,8 @@ ENV/
 .idea/
 venv/
 
+# py cache
+__pycache__/
+
 # pyc files
 advocateSimpleServer.pyc
