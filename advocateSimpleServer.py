@@ -19,8 +19,8 @@ app.secret_key = 'SUPERSECRETEKEYOFMSADVOCATEHUB'
 #
 # Mongo db related
 #
-mongoClient = MongoClient('localhost', 27017)
-# mongoClient = MongoClient('40.83.190.18', 27017)
+#mongoClient = MongoClient('localhost', 27017)
+mongoClient = MongoClient('40.83.190.18', 27017)
 db = mongoClient.advocateHub
 advocators = db.advocators
 meetings = db.meetings
@@ -125,6 +125,42 @@ def get_meetings():
         del advocator['_id']
         meetingInfo['advocator'] = advocator
     return response(meetingsInfo)
+
+@app.route('/meeting/create', methods=['POST'])
+def meeting_create():
+    meetingInfo = request.get_json()
+    advocatorId = meetingInfo['advocatorId']
+    advocator = advocators.find_one({"id": advocatorId})
+    if advocator:
+        meetingId = meetingInfo['_id']
+        del meetingInfo['_id']
+        del meetingInfo['advocator']
+        meetingDate = meetingInfo['date']
+        if meetingDate:
+            meetingInfo['date'] = datetime.utcfromtimestamp(meetingDate / 1000.0)
+        else:
+            meetingInfo['date'] = datetime.utcnow()
+        if meetingId:
+            meetings.update_one({'_id': ObjectId(meetingId)}, {'$set': meetingInfo}, upsert=False)
+            return response(True)
+        else:
+            meetings.insert_one(meetingInfo)
+            return response(True)
+    else:
+        return response({}, 404, "Advocator Not Found")
+
+@app.route('/meeting/<meetingId>', methods=['GET'])
+def get_meeting(meetingId):
+    if ObjectId.is_valid(meetingId):
+        meetingInfo = meetings.find_one({"_id": ObjectId(meetingId)})
+        if meetingInfo:
+            normalizeMongoRecordToDict(meetingInfo)
+            advocator = advocators.find_one({"id": meetingInfo['advocatorId']})
+            del advocator['_id']
+            meetingInfo['advocator'] = advocator
+            return response(meetingInfo)
+    return response({}, 404, "Meeting Not Found")
+
 
 if __name__ == '__main__':
     app.run(host="10.0.0.4", port=13888)
