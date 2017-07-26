@@ -80,8 +80,10 @@ def get_advocator(advocatorId):
 
 @app.route('/advocators')
 def get_advocators():
-    advocatorsInfo = open(json_url + '/advocates.json')
-    return response(json.load(advocatorsInfo))
+    advocatorsInfo = list(advocators.find({}))
+    for advocatorInfo in advocatorsInfo:
+        del advocatorInfo['_id']
+    return response(advocatorsInfo)
 
 @app.route('/azure/infos')
 def get_azureInfos():
