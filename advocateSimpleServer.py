@@ -1,4 +1,4 @@
-from flask import Flask, json, session
+from flask import Flask, json, session, send_file
 from flask import request
 from flask import make_response
 from flask_cors import CORS
@@ -9,6 +9,7 @@ from datetime import datetime
 from datetime import timezone
 import time
 import os
+import io
 
 app = Flask(__name__)
 CORS(app)
@@ -33,12 +34,14 @@ meetings = db.meetings
 def jd(obj):
     return json_util.dumps(obj)
 
+
 def normalizeMongoRecordToDict(record):
     for k, v in record.items():
         if type(v) is ObjectId:
             record[k] = str(v)
         elif type(v) is datetime:
             record[k] = int(v.replace(tzinfo=timezone.utc).timestamp()) * 1000
+
 
 #
 # Response
@@ -65,9 +68,11 @@ def response(data={}, code=200, errorMsg=""):
 def page_not_found(error):
     return response({}, 404)
 
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
 
 @app.route('/advocator/login/<advocatorId>', methods=['GET'])
 def get_advocator(advocatorId):
@@ -78,6 +83,7 @@ def get_advocator(advocatorId):
     else:
         return response({}, 404)
 
+
 @app.route('/advocators')
 def get_advocators():
     advocatorsInfo = list(advocators.find({}))
@@ -85,10 +91,12 @@ def get_advocators():
         del advocatorInfo['_id']
     return response(advocatorsInfo)
 
+
 @app.route('/azure/infos')
 def get_azureInfos():
     info = open(json_url + '/azureInfos.json')
     return response(json.load(info))
+
 
 @app.route('/advocator/login', methods=['POST'])
 def advocator_login():
@@ -105,6 +113,7 @@ def advocator_login():
         advocators.insert_one(advocatorInfo)
         return response(True)
 
+
 @app.route('/advocator/<advocatorId>')
 def get_advocatorDetail(advocatorId):
     advocator = advocators.find_one({"id": advocatorId})
@@ -118,6 +127,7 @@ def get_advocatorDetail(advocatorId):
     else:
         return response({}, 404)
 
+
 @app.route('/meetings')
 def get_meetings():
     meetingsInfo = list(meetings.find({}))
@@ -127,6 +137,7 @@ def get_meetings():
         del advocator['_id']
         meetingInfo['advocator'] = advocator
     return response(meetingsInfo)
+
 
 @app.route('/meeting/create', methods=['POST'])
 def meeting_create():
@@ -147,10 +158,21 @@ def meeting_create():
             meetings.update_one({'_id': ObjectId(meetingId)}, {'$set': meetingInfo}, upsert=False)
             return response(True)
         else:
-            meetings.insert_one(meetingInfo)
-            return response(True)
+            meeting_id = str(meetings.insert_one(meetingInfo).inserted_id)
+            meeting_url = "http://localhost:3000/meeting/" + meeting_id
+            import pyqrcode
+            qrcode = pyqrcode.create(meeting_url)
+            qrcode_file = 'qrcode/'+ meeting_id + '.svg'
+            qrcode.svg(qrcode_file, scale=4)
+            return response(qrcode_file)
     else:
         return response({}, 404, "Advocator Not Found")
+
+
+@app.route('/qrcode/<filename>', methods=['GET'])
+def get_qrcode(filename):
+    return send_file(filename, mimetype='image/svg+xml')
+
 
 @app.route('/meeting/<meetingId>', methods=['GET'])
 def get_meeting(meetingId):
