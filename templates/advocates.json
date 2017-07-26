@@ -1,7 +1,7 @@
 [
     {
         "id": "123456789",
-        "username": "Paul O’Shanness",
+        "name": "Paul O’Shanness",
         "avatar": "face10.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
@@ -10,7 +10,7 @@
     },
     {
         "id": "1234567892",
-        "username": "Ben Alpert",
+        "name": "Ben Alpert",
         "avatar": "face11.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
@@ -19,7 +19,7 @@
     },
     {
         "id": "1234567893",
-        "username": "John Papa",
+        "name": "John Papa",
         "avatar": "johnpapa.png",
         "githubAccount": "",
         "twitterAccount": "",
@@ -28,7 +28,7 @@
     },
     {
         "id": "1234567894",
-        "username": "Pieter De Baets",
+        "name": "Pieter De Baets",
         "avatar": "face12.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
@@ -37,7 +37,7 @@
     },
     {
         "id": "1234567895",
-        "username": "Dimitrios Zorbas",
+        "name": "Dimitrios Zorbas",
         "avatar": "face1.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
