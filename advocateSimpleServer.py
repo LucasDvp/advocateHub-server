@@ -52,7 +52,7 @@ def response(data={}, code=200, errorMsg=""):
         "errorMessage": errorMsg
     }
     response = make_response(jd(resp))
-    response.headers['Status Code'] = resp['status']
+    # response.headers['Status Code'] = resp['status']
     response.headers['Content-Type'] = "application/json"
     return response
 
@@ -64,7 +64,6 @@ def response(data={}, code=200, errorMsg=""):
 @app.errorhandler(404)
 def page_not_found(error):
     return response({}, 404)
-
 
 @app.route('/')
 def hello_world():
@@ -82,7 +81,6 @@ def get_advocators():
     advocators = open(json_url + '/advocates.json')
     return response(json.load(advocators))
 
-
 @app.route('/azure/infos')
 def get_azureInfos():
     info = open(json_url + '/azureInfos.json')
@@ -91,6 +89,7 @@ def get_azureInfos():
 
 @app.route('/user/login', methods=['POST', 'GET'])
 def user_login():
+    app.logger.info("User Login Function Dealing...")
     if request.method == 'POST':
         userInfo = request.get_json()
         userId = userInfo['id']
@@ -135,4 +134,4 @@ def get_meetings():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=13888, debug=True)
+    app.run(host="10.0.0.4", port=13888)
