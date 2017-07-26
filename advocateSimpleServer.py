@@ -69,7 +69,7 @@ def page_not_found(error):
 def hello_world():
     return 'Hello World!'
 
-@app.route('/advocator/<advocatorId>')
+@app.route('/advocator/login/<advocatorId>')
 def get_advocator(advocatorId):
     advocator = advocators.find_one({"id": advocatorId})
     if advocator:
@@ -103,7 +103,7 @@ def advocator_login():
         advocators.insert_one(advocatorInfo)
         return response(True)
 
-@app.route('/advocator/detail/<advocatorId>')
+@app.route('/advocator/<advocatorId>')
 def get_advocatorDetail(advocatorId):
     advocator = advocators.find_one({"id": advocatorId})
     if advocator:
@@ -125,7 +125,6 @@ def get_meetings():
         del advocator['_id']
         meetingInfo['advocator'] = advocator
     return response(meetingsInfo)
-
 
 if __name__ == '__main__':
     app.run(host="10.0.0.4", port=13888)
