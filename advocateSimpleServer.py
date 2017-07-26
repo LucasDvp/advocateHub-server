@@ -69,7 +69,7 @@ def page_not_found(error):
 def hello_world():
     return 'Hello World!'
 
-@app.route('/advocator/login/<advocatorId>')
+@app.route('/advocator/login/<advocatorId>', methods=['GET'])
 def get_advocator(advocatorId):
     advocator = advocators.find_one({"id": advocatorId})
     if advocator:
