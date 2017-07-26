@@ -134,8 +134,9 @@ def meeting_create():
     advocatorId = meetingInfo['advocatorId']
     advocator = advocators.find_one({"id": advocatorId})
     if advocator:
-        del meetingInfo['advocator']
-        meetingDate = meetingInfo.get['date']
+        if meetingInfo.get('advocator'):
+            del meetingInfo['advocator']
+        meetingDate = meetingInfo.get('date')
         if meetingDate:
             meetingInfo['date'] = datetime.utcfromtimestamp(meetingDate / 1000.0)
         else:
