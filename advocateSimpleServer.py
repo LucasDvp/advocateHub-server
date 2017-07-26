@@ -163,7 +163,7 @@ def meeting_create():
             import pyqrcode
             qrcode = pyqrcode.create(meeting_url)
             qrcode_file = meeting_id + '.svg'
-            qrcode.svg(qrcode_file, scale=4)
+            qrcode.svg("qrcode/" + qrcode_file, scale=4)
             return response(qrcode_file)
     else:
         return response({}, 404, "Advocator Not Found")
