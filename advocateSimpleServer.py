@@ -1,4 +1,4 @@
-from flask import Flask, json, session, send_file
+from flask import Flask, json, session, send_from_directory
 from flask import request
 from flask import make_response
 from flask_cors import CORS
@@ -162,7 +162,7 @@ def meeting_create():
             meeting_url = "http://advocatehubmobile.westus.cloudapp.azure.com/meeting/" + meeting_id
             import pyqrcode
             qrcode = pyqrcode.create(meeting_url)
-            qrcode_file =  meeting_id + '.svg'
+            qrcode_file = meeting_id + '.svg'
             qrcode.svg(qrcode_file, scale=4)
             return response(qrcode_file)
     else:
@@ -171,7 +171,7 @@ def meeting_create():
 
 @app.route('/qrcode/<filename>', methods=['GET'])
 def get_qrcode(filename):
-    return send_file(filename, mimetype='image/svg+xml')
+    return send_from_directory('qrcode/', filename, mimetype='image/svg+xml')
 
 
 @app.route('/meeting/<meetingId>', methods=['GET'])
