@@ -1,42 +1,47 @@
 [
     {
         "id": "123456789",
-        "username": "John Papa",
-        "avatar": "./imgs/avatar.jpg",
+        "username": "Paul O’Shanness",
+        "avatar": "face10.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-        "aspect": "node.js, .NET, react"
+		"popularity": 90
+        "tags": ["JS", "React"]
     },
     {
         "id": "1234567892",
-        "username": "John Grandpapa",
-        "avatar": "./imgs/avatar.jpg",
+        "username": "Ben Alpert",
+        "avatar": "face11.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-        "aspect": "node.js, .NET, react"
+		"popularity": 100
+        "tags": ["JS", "React"]
     },
     {
         "id": "1234567893",
-        "username": "John Mother",
-        "avatar": "./imgs/avatar.jpg",
+        "username": "John Papa",
+        "avatar": "johnpapa.png",
         "githubAccount": "",
         "twitterAccount": "",
-        "aspect": "node.js, .NET, react"
+		"popularity": 60
+        "tags": ["JS", "Angular", "React", "Azure", ".NET"]
     },
     {
         "id": "1234567894",
-        "username": "Johnson",
-        "avatar": "./imgs/avatar.jpg",
+        "username": "Pieter De Baets",
+        "avatar": "face12.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-        "aspect": "node.js, .NET, react"
+		"popularity": 30
+        "tags": ["JS", "Naive"]
     },
     {
         "id": "1234567895",
-        "username": "John Nana",
-        "avatar": "./imgs/avatar.jpg",
+        "username": "Dimitrios Zorbas",
+        "avatar": "face1.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-        "aspect": "node.js, .NET, react"
+		"popularity": 70
+        "tags": ["Python", "CNTK", "Tensorflow"]
     }
 ]
