@@ -5,7 +5,7 @@
         "avatar": "face10.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-		"popularity": 90
+		"popularity": 90,
         "tags": ["JS", "React"]
     },
     {
@@ -14,7 +14,7 @@
         "avatar": "face11.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-		"popularity": 100
+		"popularity": 100,
         "tags": ["JS", "React"]
     },
     {
@@ -23,7 +23,7 @@
         "avatar": "johnpapa.png",
         "githubAccount": "",
         "twitterAccount": "",
-		"popularity": 60
+		"popularity": 60,
         "tags": ["JS", "Angular", "React", "Azure", ".NET"]
     },
     {
@@ -32,7 +32,7 @@
         "avatar": "face12.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-		"popularity": 30
+		"popularity": 30,
         "tags": ["JS", "Naive"]
     },
     {
@@ -41,7 +41,7 @@
         "avatar": "face1.jpeg",
         "githubAccount": "",
         "twitterAccount": "",
-		"popularity": 70
+		"popularity": 70,
         "tags": ["Python", "CNTK", "Tensorflow"]
     }
 ]
