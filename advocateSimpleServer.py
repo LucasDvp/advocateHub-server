@@ -70,10 +70,10 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/user')
-def get_user():
-    user = open(json_url + '/user.json')
-    return response(json.load(user))
+@app.route('/advocator')
+def get_advocator():
+    advocator = open(json_url + '/advocator.json')
+    return response(json.load(advocator))
 
 
 @app.route('/advocators')
@@ -87,40 +87,39 @@ def get_azureInfos():
     return response(json.load(info))
 
 
-@app.route('/user/login', methods=['POST', 'GET'])
-def user_login():
-    app.logger.info("User Login Function Dealing...")
+@app.route('/advocator/login', methods=['POST', 'GET'])
+def advocator_login():
+    app.logger.info("Advocator Login Function Dealing...")
     if request.method == 'POST':
-        userInfo = request.get_json()
-        userId = userInfo['id']
-        session['id'] = userId
-        advocator = advocators.find_one({"id": userId})
+        advocatorInfo = request.get_json()
+        advocatorId = advocatorInfo['id']
+        session['id'] = advocatorId
+        advocator = advocators.find_one({"id": advocatorId})
         if advocator:
-            print(userInfo)
-            advocators.update_one({'id': userId}, {'$set': userInfo}, upsert=False)
+            advocators.update_one({'id': advocatorId}, {'$set': advocatorInfo}, upsert=False)
             return response(True)
         else:
-            advocators.insert_one(userInfo)
+            advocators.insert_one(advocatorInfo)
             return response(True)
     else:
-        userId = request.args.get('userId')
-        advocator = advocators.find_one({"id": userId})
+        advocatorId = request.args.get('advocatorId')
+        advocator = advocators.find_one({"id": advocatorId})
         if advocator:
             del advocator['_id']
             return response(advocator)
         else:
             return response({}, 404)
 
-@app.route('/user/detail')
-def get_userDetail():
-    userId = request.args.get('userId')
-    advocator = advocators.find_one({"id": userId})
+@app.route('/advocator/detail')
+def get_advocatorDetail():
+    advocatorId = request.args.get('advocatorId')
+    advocator = advocators.find_one({"id": advocatorId})
     if advocator:
         del advocator['_id']
-        userMeetings = list(meetings.find({"advocatorId": userId}))
-        for userMeeting in userMeetings:
-            normalizeMongoRecordToDict(userMeeting)
-        advocator['meetings'] = userMeetings
+        advocatorMeetings = list(meetings.find({"advocatorId": advocatorId}))
+        for advocatorMeeting in advocatorMeetings:
+            normalizeMongoRecordToDict(advocatorMeeting)
+        advocator['meetings'] = advocatorMeetings
         return response(advocator)
     else:
         return response({}, 404)

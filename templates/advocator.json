@@ -1,6 +1,6 @@
 {
     "id": "123456789",
-    "username": "John Papa",
+    "name": "John Papa",
     "password": "1234567",
     "avatar": "./imgs/avatar.jpg",
     "githubAccount": "",
