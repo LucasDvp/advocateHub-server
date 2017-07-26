@@ -69,50 +69,42 @@ def page_not_found(error):
 def hello_world():
     return 'Hello World!'
 
-
-@app.route('/advocator')
-def get_advocator():
-    advocator = open(json_url + '/advocator.json')
-    return response(json.load(advocator))
-
+@app.route('/advocator/<advocatorId>')
+def get_advocator(advocatorId):
+    advocator = advocators.find_one({"id": advocatorId})
+    if advocator:
+        del advocator['_id']
+        return response(advocator)
+    else:
+        return response({}, 404)
 
 @app.route('/advocators')
 def get_advocators():
-    advocators = open(json_url + '/advocates.json')
-    return response(json.load(advocators))
+    advocatorsInfo = open(json_url + '/advocates.json')
+    return response(json.load(advocatorsInfo))
 
 @app.route('/azure/infos')
 def get_azureInfos():
     info = open(json_url + '/azureInfos.json')
     return response(json.load(info))
 
-
-@app.route('/advocator/login', methods=['POST', 'GET'])
+@app.route('/advocator/login', methods=['POST'])
 def advocator_login():
     app.logger.info("Advocator Login Function Dealing...")
-    if request.method == 'POST':
-        advocatorInfo = request.get_json()
-        advocatorId = advocatorInfo['id']
-        session['id'] = advocatorId
-        advocator = advocators.find_one({"id": advocatorId})
-        if advocator:
-            advocators.update_one({'id': advocatorId}, {'$set': advocatorInfo}, upsert=False)
-            return response(True)
-        else:
-            advocators.insert_one(advocatorInfo)
-            return response(True)
+    advocatorInfo = request.get_json()
+    advocatorId = advocatorInfo['id']
+    session['id'] = advocatorId
+    advocator = advocators.find_one({"id": advocatorId})
+    if advocator:
+        del advocator['_id']
+        advocators.update_one({'id': advocatorId}, {'$set': advocatorInfo}, upsert=False)
+        return response(True)
     else:
-        advocatorId = request.args.get('advocatorId')
-        advocator = advocators.find_one({"id": advocatorId})
-        if advocator:
-            del advocator['_id']
-            return response(advocator)
-        else:
-            return response({}, 404)
+        advocators.insert_one(advocatorInfo)
+        return response(True)
 
-@app.route('/advocator/detail')
-def get_advocatorDetail():
-    advocatorId = request.args.get('advocatorId')
+@app.route('/advocator/detail/<advocatorId>')
+def get_advocatorDetail(advocatorId):
     advocator = advocators.find_one({"id": advocatorId})
     if advocator:
         del advocator['_id']
@@ -129,6 +121,9 @@ def get_meetings():
     meetingsInfo = list(meetings.find({}))
     for meetingInfo in meetingsInfo:
         normalizeMongoRecordToDict(meetingInfo)
+        advocator = advocators.find_one({"id": meetingInfo['advocatorId']})
+        del advocator['_id']
+        meetingInfo['advocator'] = advocator
     return response(meetingsInfo)
 
 
