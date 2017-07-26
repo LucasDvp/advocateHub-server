@@ -62,10 +62,6 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/test')
-def test_gunicorn():
-    return 'Fuck Gunicorn!'
-
 @app.route('/user')
 def get_user():
     user = open(json_url + '/user.json')
@@ -85,6 +81,7 @@ def get_azureInfos():
 
 @app.route('/user/login', methods=['POST', 'GET'])
 def user_login():
+    app.logger.info("User Login Function Dealing...")
     if request.method == 'POST':
         userInfo = request.get_json()
         userId = userInfo['id']
