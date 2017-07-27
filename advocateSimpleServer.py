@@ -149,7 +149,7 @@ def meeting_create():
             del meetingInfo['advocator']
         meetingDate = meetingInfo.get('date')
         if meetingDate:
-            meetingInfo['date'] = datetime.utcfromtimestamp(meetingDate / 1000.0)
+            meetingInfo['date'] = datetime.fromtimestamp(meetingDate / 1000.0)
         else:
             meetingInfo['date'] = datetime.utcnow()
         meetingId = meetingInfo.get('_id')
