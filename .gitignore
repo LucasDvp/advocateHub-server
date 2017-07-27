@@ -7,3 +7,5 @@ __pycache__/
 
 # pyc files
 advocateSimpleServer.pyc
+
+qrcode/*
