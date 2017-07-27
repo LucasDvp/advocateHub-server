@@ -152,7 +152,7 @@ def meeting_create():
             meetingInfo['date'] = datetime.fromtimestamp(meetingDate / 1000.0)
         else:
             meetingInfo['date'] = datetime.utcnow()
-       meetingId = meetingInfo.get('_id')
+        meetingId = meetingInfo.get('_id')
         if meetingId:
             del meetingInfo['_id']
             meetings.update_one({'_id': ObjectId(meetingId)}, {'$set': meetingInfo}, upsert=False)
