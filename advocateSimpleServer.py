@@ -134,7 +134,8 @@ def get_meetings():
     for meetingInfo in meetingsInfo:
         normalizeMongoRecordToDict(meetingInfo)
         advocator = advocators.find_one({"id": meetingInfo['advocatorId']})
-        del advocator['_id']
+        if advocator:
+            del advocator['_id']
         meetingInfo['advocator'] = advocator
     return response(meetingsInfo)
 
@@ -181,7 +182,8 @@ def get_meeting(meetingId):
         if meetingInfo:
             normalizeMongoRecordToDict(meetingInfo)
             advocator = advocators.find_one({"id": meetingInfo['advocatorId']})
-            del advocator['_id']
+            if advocator:
+                del advocator['_id']
             meetingInfo['advocator'] = advocator
             return response(meetingInfo)
     return response({}, 404, "Meeting Not Found")
