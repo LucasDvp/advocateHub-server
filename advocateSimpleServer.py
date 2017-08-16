@@ -20,8 +20,8 @@ app.secret_key = 'SUPERSECRETEKEYOFMSADVOCATEHUB'
 #
 # Mongo db related
 #
-mongoClient = MongoClient('localhost', 27017)
-# mongoClient = MongoClient('40.83.190.18', 27017)
+#mongoClient = MongoClient('localhost', 27017)
+mongoClient = MongoClient('40.83.217.162', 27017)
 db = mongoClient.advocateHub
 advocators = db.advocators
 meetings = db.meetings
@@ -165,7 +165,7 @@ def meeting_create():
             qrcode = pyqrcode.create(meeting_url)
             qrcode_file = meeting_id + '.svg'
             qrcode.svg("qrcode/" + qrcode_file, scale=4)
-            return response(qrcode_file)
+            return response({'qrcode': qrcode_file, 'link': meeting_url})
     else:
         return response({}, 404, "Advocator Not Found")
 
