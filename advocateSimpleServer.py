@@ -160,7 +160,7 @@ def meeting_create():
             return response(True)
         else:
             meeting_id = str(meetings.insert_one(meetingInfo).inserted_id)
-            meeting_url = "http://advocatehubmobile.westus.cloudapp.azure.com/meeting/" + meeting_id
+            meeting_url = "http://advocatehub.westus.cloudapp.azure.com/talk/" + meeting_id
             import pyqrcode
             qrcode = pyqrcode.create(meeting_url)
             qrcode_file = meeting_id + '.svg'
