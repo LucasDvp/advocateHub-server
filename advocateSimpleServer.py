@@ -20,8 +20,8 @@ app.secret_key = 'SUPERSECRETEKEYOFMSADVOCATEHUB'
 #
 # Mongo db related
 #
-#mongoClient = MongoClient('localhost', 27017)
-mongoClient = MongoClient('40.83.217.162', 27017)
+mongoClient = MongoClient('localhost', 27017)
+#mongoClient = MongoClient('40.83.217.162', 27017)
 db = mongoClient.advocateHub
 advocators = db.advocators
 meetings = db.meetings
