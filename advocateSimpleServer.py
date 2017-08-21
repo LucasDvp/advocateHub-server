@@ -9,7 +9,6 @@ from datetime import datetime
 from datetime import timezone
 import time
 import os
-import io
 
 app = Flask(__name__)
 CORS(app)
@@ -21,7 +20,8 @@ app.secret_key = 'SUPERSECRETEKEYOFMSADVOCATEHUB'
 # Mongo db related
 #
 mongoClient = MongoClient('localhost', 27017)
-#mongoClient = MongoClient('40.83.217.162', 27017)
+# mongoClient = MongoClient('40.83.217.162', 27017)
+mongoClient.admin.authenticate('zikun', 'AdvocateHub$', mechanism='SCRAM-SHA-1', source='admin')
 db = mongoClient.advocateHub
 advocators = db.advocators
 meetings = db.meetings
